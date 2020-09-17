@@ -50,7 +50,7 @@ export default {
               if(!valid) return 
               const {data :res} =await this.$http.get('http://119.23.53.78:8888/api/private/v1/login',{params:this.form})
               if(res.meta.status!=200)
-              return this.$message.error('登录失败!')
+              return this.$message.error({ message:'登录失败!',showClose:true})
               console.log(res)
               window.sessionStorage.setItem('token',res.data.token)
               this.$router.push('/home')

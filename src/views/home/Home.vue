@@ -10,48 +10,36 @@
       <el-button type="info" @click="homeout">退出</el-button>
   </el-header>
   <el-container>
-    <el-aside width="200px" class="aside">
+    <el-aside :width="collapse?'64px':'200px'"class="aside">
+      <div class="control-menu" @click="controlMenu">|||</div>
         <el-menu
+        
+        :unique-opened="true"
       default-active="2"
       class="el-menu-vertical-demo"
-      @open="handleOpen"
-      @close="handleClose"
       background-color="#545c64"
       text-color="#fff"
-      active-text-color="#ffd04b">
-      <el-submenu index="1">
+      active-text-color="#ffd04b"
+      :collapse="collapse"
+      :collapse-transition="false"
+      :router="true"
+      :default-active="$route.path"
+      >
+      <el-submenu :index="item.id+''" v-for="item in menu" >
         <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>导航一</span>
+          <i :class="fonticon[item.id]"></i>
+          <span>{{item.authName}}</span>
         </template>
-        <el-menu-item-group>
-          <template slot="title">分组一</template>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="1-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
-        </el-submenu>
+          <el-menu-item :index="'/'+subitem.path" v-for="subitem in item.children">
+            <i class="el-icon-menu"></i>
+            {{subitem.authName}}
+            </el-menu-item>
       </el-submenu>
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <span slot="title">导航二</span>
-      </el-menu-item>
-      <el-menu-item index="3" disabled>
-        <i class="el-icon-document"></i>
-        <span slot="title">导航三</span>
-      </el-menu-item>
-      <el-menu-item index="4">
-        <i class="el-icon-setting"></i>
-        <span slot="title">导航四</span>
-      </el-menu-item>
     </el-menu>
     </el-aside>
-    <el-main class="main"></el-main>
+    <el-main class="main">
+      <router-view></router-view>
+    </el-main>
   </el-container>
 </el-container>
   </div>
@@ -59,15 +47,40 @@
 
 <script>
 export default {
+  created() {
+  this.getMeus()
+  },
     name:"Home",
   data () {
     return {
+      menu:[],
+      collapse:false,
+      fonticon:{
+        '125':'iconfont icon-yonghu ',
+        '103':'iconfont icon-dingdan ',
+        '101':'iconfont icon-shuju ',
+        '102':'iconfont icon-shangpin ',
+        '145':'iconfont icon-quanxian ',
+      }
     }
   },
   methods: {
       homeout(){
           window.sessionStorage.clear()
           this.$router.push('/login')
+      },
+      async getMeus(){
+     const{data:res}=await this.$http.get('http://timemeetyou.com:8889/api/private/v1/menus')
+     console.log(res)
+     this.menu.push(...res.data)
+     console.log(this.menu)
+      },
+      controlMenu(){
+        if(this.collapse==false)
+          this.collapse=true
+          else
+          this.collapse=false
+
       }
   },
 }
@@ -76,6 +89,7 @@ export default {
 <style  scoped>
 .home{
     height: 100%;
+    
 }
 .content{
     height: 100%;
@@ -87,10 +101,10 @@ export default {
     align-items: center;
     color: #fff;
     font-size: 20px;
-    padding-left: 0;
+    padding-left: 5px;
 }
 .aside{
-    background-color: #C9C9C9;
+    background-color: #545c64;
 }
 .main{
     background-color: #eee;
@@ -105,5 +119,21 @@ export default {
     display: flex;
     align-items: center;
     
+}
+.control-menu{
+  line-height: 30px;
+  color: white;
+  font-size: 20px;
+  letter-spacing:5px;
+  text-align: center;
+  width: 100%;
+}
+.el-menu-vertical-demo{
+  border-right: none;
+}
+.iconfont {
+  margin-right: 10px;
+  font-size: 20px;
+  color:#fff;
 }
 </style>
