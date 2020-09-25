@@ -75,11 +75,11 @@
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="1"
+      :current-page="params.params.pagenum"
       :page-sizes="[1, 3, 5, 7]"
-      :page-size="1"
+      :page-size="params.params.pagesize"
       layout="total, sizes, prev, pager, next, jumper"
-      :total="4">
+      :total="total">
     </el-pagination>
 </el-card>
 <el-dialog

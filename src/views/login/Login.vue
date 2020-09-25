@@ -54,6 +54,7 @@ export default {
               console.log(res)
               window.sessionStorage.setItem('token',res.data.token)
               this.$router.push('/home')
+              this.$message.success('欢迎进入')
             
 
           })

@@ -8,10 +8,16 @@
   },
   "dependencies": {
     "axios": "^0.20.0",
+    "china-area-data": "^5.0.1",
     "core-js": "^3.6.5",
     "element-ui": "^2.13.2",
+    "lodash": "^4.17.20",
+    "nprogress": "^0.2.0",
     "vue": "^2.6.11",
-    "vue-router": "^3.4.3"
+    "vue-progressbar": "^0.7.5",
+    "vue-quill-editor": "^3.0.6",
+    "vue-router": "^3.4.3",
+    "vue-table-with-tree-grid": "^0.2.4"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",

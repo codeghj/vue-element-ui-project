@@ -6,6 +6,11 @@ import welcome from '../views/home/childerCompos/welcom.vue'
 import user from '../views/home/childerCompos/user.vue'
 import rights from '../views/home/childerCompos/rights.vue'
 import roles from '../views/home/childerCompos/roles.vue'
+import shopcategory from '../views/home/childerCompos/shopCategory.vue'
+import shopParams from '../views/home/childerCompos/shopParams.vue'
+import goods from '../views/home/childerCompos/goods.vue'
+import addgoods from '../views/home/childerCompos/AddGoods.vue'
+import orders from '../views/home/childerCompos/Orders.vue'
 Vue.use(VueRouter)
 const routes=[
     {
@@ -37,6 +42,26 @@ const routes=[
        {
          path:'/roles',
          component:roles
+       },
+       {
+         path:'/categories',
+         component:shopcategory
+       },
+       {
+         path:'/params',
+         component:shopParams
+       },
+       {
+         path:'/goods',
+         component:goods
+       },
+       {
+         path:'/goods/add',
+         component:addgoods
+       },
+       {
+         path:'/orders',
+         component:orders
        }
      ]
     }
